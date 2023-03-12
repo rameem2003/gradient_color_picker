@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Picker</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <h2>Gradient Picker</h2>
+        <div id="window"></div>
+
+        <div class="controls">
+            <h3>Controls</h3>
+
+            <div class="controler">
+                <div class="left">
+                    <p>Direction</p>
+                    <select name="" id="direction">
+                        <option value="left" selected>To Left</option>
+                        <option value="right">To Right</option>
+                    </select>
+                </div>
+    
+                <div class="right">
+                    <p>Degree</p>
+                    <input type="number" name="" id="degree" min="0" max="360">
+                </div>
+            </div>
+        </div>
+
+        <div class="colorPicker">
+            <div class="left">
+                <p>Left Side Color: </p>
+                <div class="flex">
+                    <input class="color_input" type="color" name="" id="leftSideColor">
+                    <span id="color_code_left">0000000</span>
+                </div>
+            </div>
+
+            <div class="right">
+                <p>Right Side Color: </p>
+                <div class="flex">
+                    <input class="color_input" type="color" name="" id="rightSideColor">
+                    <span id="color_code_right">0000000</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="outputWindow">
+            CSS Code Will be Here. <br> Press "Generate CSS Code" button. Code will automatically copy
+        </div>
+
+        <button type="button" id="generate">Generate CSS Code</button>
+    </div>
+
+
+    <script src="./app.js"></script>
+</body>
+</html>
