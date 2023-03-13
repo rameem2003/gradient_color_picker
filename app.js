@@ -10,16 +10,17 @@ const color_code_right = document.getElementById("color_code_right");
 const outputWindow = document.getElementById("outputWindow");
 const generate = document.getElementById("generate");
 const direction = document.getElementById("direction");
+const degree = document.getElementById("degree");
 
 const color_input = document.querySelectorAll(".color_input");
 let setdirection = "top";
-let setDegree = ""
+let setDegree = "";
 
 // display the color on input
 color_input.forEach(color => {
     color.addEventListener("input", () => {
         changeColor();
-        displayColor(setdirection);
+        displayColorByDirection(setdirection);
     })
 })
 
@@ -39,9 +40,17 @@ function changeColor () {
 
 
 // display color in window
-function displayColor (direction) {
+function displayColorByDirection (direction) {
     const {leftColor, rightColor} = changeColor();
     const colorCode = `linear-gradient(to ${direction}, ${leftColor}, ${rightColor})`
+    displayColorWindow.style.backgroundImage = colorCode;
+    console.log(colorCode);
+    return colorCode;
+}
+
+function displayColorByDegree (deg) {
+    const {leftColor, rightColor} = changeColor();
+    const colorCode = `linear-gradient(${deg}deg, ${leftColor}, ${rightColor})`
     displayColorWindow.style.backgroundImage = colorCode;
     console.log(colorCode);
     return colorCode;
@@ -53,19 +62,19 @@ direction.addEventListener("input", () => {
     console.log(setdirection);
     switch (setdirection) {
         case "left":
-            displayColor("left");
+            displayColorByDirection("left");
             break;
         
         case "right":
-            displayColor("right");
+            displayColorByDirection("right");
             break;
 
         case "top":
-            displayColor("top");
+            displayColorByDirection("top");
             break;
 
         case "bottom":
-            displayColor("bottom");
+            displayColorByDirection("bottom");
             break;
         default:
             break;
@@ -74,12 +83,30 @@ direction.addEventListener("input", () => {
 
 // generate color css code
 generate.addEventListener("click", () => {
-    let cssCode = displayColor(setdirection);
+    let cssCode = displayColorByDirection(setdirection);
     outputWindow.innerHTML = `background-image: ${cssCode};`;
     let copyCode = `background-image: ${cssCode};`
     navigator.clipboard.writeText(copyCode);
 })
 
 
+if(document.getElementById("degreeSwitch").checked == true){
+    degree.addEventListener("input", () => {
+        let getDegree = degree.value;
+        displayColorByDegree(getDegree);
+        console.log(getDegree);
+    })
+}
+
+    // degree.addEventListener("input", () => {
+    //     let getDegree = degree.value;
+    //     displayColorByDegree(getDegree);
+    //     console.log(getDegree);
+    // })
+
+    // console.log(degree);
+
+
+
 changeColor();
-displayColor(setdirection);
+displayColorByDirection(setdirection);

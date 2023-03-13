@@ -44,6 +44,7 @@ body{
 
 .controls .controler p{
     font-weight: bolder;
+    display: inline;
 }
 
 .controls .controler .left,
@@ -64,7 +65,7 @@ body{
     margin-top: 8px;
 }
 
-.controls .controler input{
+.controls .controler #degree{
     width: 100%;
     height: 40px;
     font-size: 20px;
