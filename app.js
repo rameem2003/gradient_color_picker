@@ -9,12 +9,16 @@ const color_code_right = document.getElementById("color_code_right");
 
 const outputWindow = document.getElementById("outputWindow");
 const generate = document.getElementById("generate");
+
+const options = document.getElementById("options")
 const direction = document.getElementById("direction");
 const degree = document.getElementById("degree");
+degree.setAttribute("disabled", "");
+
 
 const color_input = document.querySelectorAll(".color_input");
 let setdirection = "top";
-let setDegree = "";
+let getDegree = "";
 
 // display the color on input
 color_input.forEach(color => {
@@ -39,7 +43,7 @@ function changeColor () {
 
 
 
-// display color in window
+// display color in window by direction
 function displayColorByDirection (direction) {
     const {leftColor, rightColor} = changeColor();
     const colorCode = `linear-gradient(to ${direction}, ${leftColor}, ${rightColor})`
@@ -48,6 +52,7 @@ function displayColorByDirection (direction) {
     return colorCode;
 }
 
+// display color in window by degree
 function displayColorByDegree (deg) {
     const {leftColor, rightColor} = changeColor();
     const colorCode = `linear-gradient(${deg}deg, ${leftColor}, ${rightColor})`
@@ -81,32 +86,49 @@ direction.addEventListener("input", () => {
     }
 })
 
-// generate color css code
-generate.addEventListener("click", () => {
-    let cssCode = displayColorByDirection(setdirection);
-    outputWindow.innerHTML = `background-image: ${cssCode};`;
-    let copyCode = `background-image: ${cssCode};`
-    navigator.clipboard.writeText(copyCode);
+
+// change gradient by degree
+degree.addEventListener("input", () => {
+    getDegree = degree.value;
+    displayColorByDegree(getDegree);
+    console.log(displayColorByDegree(getDegree));
 })
 
 
-if(document.getElementById("degreeSwitch").checked == true){
-    degree.addEventListener("input", () => {
-        let getDegree = degree.value;
+// check witch option is checked
+options.addEventListener("input", () => {
+    if(options.value == "byDirection"){
+        degree.setAttribute("disabled", "");
+        direction.removeAttribute("disabled");
+        displayColorByDirection(setdirection);
+
+        // generate color css code
+        generate.addEventListener("click", () => {
+            let cssCode = displayColorByDirection(setdirection);
+            outputWindow.innerHTML = `background-image: ${cssCode};`;
+            let copyCode = `background-image: ${cssCode};`
+            navigator.clipboard.writeText(copyCode);
+        })
+    }
+    else if(options.value == "byDegree"){
+        direction.setAttribute("disabled", "");
+        degree.disabled = false;
         displayColorByDegree(getDegree);
-        console.log(getDegree);
-    })
-}
 
-    // degree.addEventListener("input", () => {
-    //     let getDegree = degree.value;
-    //     displayColorByDegree(getDegree);
-    //     console.log(getDegree);
-    // })
 
-    // console.log(degree);
+        // generate color css code
+        generate.addEventListener("click", () => {
+            let cssCode = displayColorByDegree(getDegree);
+            outputWindow.innerHTML = `background-image: ${cssCode};`;
+            let copyCode = `background-image: ${cssCode};`
+            navigator.clipboard.writeText(copyCode);
+        })
+    }
+})
 
 
 
 changeColor();
 displayColorByDirection(setdirection);
+
+
