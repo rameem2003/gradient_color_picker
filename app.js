@@ -131,4 +131,13 @@ options.addEventListener("input", () => {
 changeColor();
 displayColorByDirection(setdirection);
 
+// generate color css code
+generate.addEventListener("click", () => {
+    let cssCode = displayColorByDirection(setdirection);
+    outputWindow.innerHTML = `background-image: ${cssCode};`;
+    let copyCode = `background-image: ${cssCode};`
+    navigator.clipboard.writeText(copyCode);
+})
+
+
 
